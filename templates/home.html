@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <title>Tube Downloader</title>
+  </head>
+  <body>
+  <h1 class="text-center w-100 my-3">Tube Downloader</h1>
+    <div class="card p-3 shadow m-3">
+        <form action="http://127.0.0.1:5000/download" method="POST">
+            <div class="input-group">
+            <input type="text" name="url" id="videoUrl" placeholder="Enter Video Url" class="form-control">
+            <button class="btn btn-success" type="submit">Download</button>
+            </div>
+        </form>
+    </div>
+    <div>
+        <h5 class="text-center w-100">Developed By <a href="https://github.com/codeking5" target="_codeking5">@codeking5</a></h5>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+  </body>
+</html>
