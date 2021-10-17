@@ -21,8 +21,8 @@ def hello_world():
     return render_template('home.html')
 
 @app.route('/video')
-def video(downloadPath,thumbnailUrl,title,size):
-    return render_template('download.html', path=downloadPath, thumbnail=thumbnailUrl, title=title, size=size)
+def video(downloadPath,thumbnailUrl,title,size,audioPath):
+    return render_template('download.html', path=downloadPath, thumbnail=thumbnailUrl, title=title, size=size,audioPath=audioPath)
 
 
 @app.route('/download', methods=['POST', 'GET'])
@@ -30,9 +30,11 @@ def downloadVid():
     if request.method == 'POST':
         url = request.form['url']
         yt = YouTube(url)
-        file = yt.streams.filter(progressive=True, file_extension='mp4').order_by('resolution').desc().first().url
-        fileSize = yt.streams.filter(progressive=True, file_extension='mp4').order_by(
+        main = yt.streams
+        file = main.filter(progressive=True, file_extension='mp4').order_by('resolution').desc().first().url
+        fileSize = main.filter(progressive=True, file_extension='mp4').order_by(
             'resolution').desc().first().filesize
+        audioPath = main.get_audio_only().url
     else:
         url = request.args.get('url')
         yt = YouTube(url)
@@ -40,7 +42,10 @@ def downloadVid():
             'resolution').desc().first().url
         fileSize = yt.streams.filter(progressive=True, file_extension='mp4').order_by(
             'resolution').desc().first().filesize
-    return video(file,yt.thumbnail_url,yt.title,convertFloatToDecimal((fileSize/1024.0**2), 0))
+        audioPath = yt.streams.filter(progressive=True, file_extension='mp4').get_audio_only().url
+
+    print("Audio Path is : ",audioPath)
+    return video(file,yt.thumbnail_url,yt.title,convertFloatToDecimal((fileSize/1024.0**2), 0),audioPath)
 
 
 # main driver function
